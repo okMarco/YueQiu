@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#27ae60</color>
+    <color name="colorPrimaryDark">#FF1E8449</color>
+    <color name="colorAccent">#27ae60</color>
+
+    <color name="colorWhite">#eaebeb</color>
+    <color name="colorGreen">#FF1E8449</color>
+    <color name="colorTitleText">#ffffff</color>
+    <color name="colorStatusText">#585858</color>
+    <color name="colorCreateTime">#b0b0b0</color>
+    <color name="colorDivide">#50cccccc</color>
+</resources>

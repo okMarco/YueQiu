@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawerLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="false"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        tools:context=".MainActivity">
+
+        <com.hochan.customview.CustomAppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:titleTextColor="@color/colorTitleText"
+                app:titleTextAppearance="@style/TitleTextStyle"
+                android:title="@string/title_text_main"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="-56dp">
+
+                <ImageButton
+                    android:id="@+id/back"
+                    android:layout_width="56dp"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/ic_backarrow"
+                    android:scaleType="center"
+                    android:background="@android:color/transparent"/>
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="56dp"
+                    android:layout_height="fill_parent"
+                    android:text="@string/action_search"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+
+        </com.hochan.customview.CustomAppBarLayout>
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@android:color/white"/>
+    </android.support.design.widget.CoordinatorLayout>
+    <RelativeLayout
+        android:id="@+id/rl_drawerFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left"
+        android:background="@android:color/white">
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

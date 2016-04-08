@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:cardCornerRadius="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        >
+
+        <com.hochan.customview.CustomScrollLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:visibility="visible"
+                >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/firstline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:singleLine="true"
+                        android:text="Text"
+                        android:textColor="@color/colorStatusText"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/secondline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="right"
+                        android:singleLine="true"
+                        android:textColor="#999999"
+                        android:textSize="13sp"
+                        android:text="Text"
+                        android:visibility="visible"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="详情"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:layout_width="7dp"
+                        android:layout_height="13dp"
+                        android:layout_marginLeft="4dp"
+                        android:src="@drawable/arrow_right_blue"
+                        android:tint="?attr/colorPrimary"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/route_segment_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@android:color/transparent"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0dp"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:background="@android:color/white"
+                android:listSelector="@android:color/transparent" />
+        </com.hochan.customview.CustomScrollLayout>
+        
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/route_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </com.amap.api.maps2d.MapView>
+
+
+        <LinearLayout
+            android:id="@+id/bus_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <!--<ListView
+                android:id="@+id/bus_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#00000000"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:fadingEdgeLength="0dp"
+                android:footerDividersEnabled="false"
+                android:headerDividersEnabled="false"
+                android:listSelector="#00000000" >
+            </ListView>-->
+
+            <ExpandableListView
+                android:id="@+id/expListView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            </ExpandableListView>
+        </LinearLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

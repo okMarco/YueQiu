@@ -1,0 +1,36 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:16:1-20:12
+	package
+		ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:17:11-48
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:16:11-69
+uses-sdk
+ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:appcompat-v7:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:animated-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.android.support:support-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:5:5-43
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:20:5-43
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:18:15-40
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+		INJECTED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml
+application
+ADDED from D:\ecpliseWordSPace\YueQiu\cardview\src\main\AndroidManifest.xml:19:5-20
+MERGED from [com.android.support:appcompat-v7:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.android.support:support-v4:23.2.1] D:\ecpliseWordSPace\YueQiu\cardview\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\AndroidManifest.xml:22:5-20
