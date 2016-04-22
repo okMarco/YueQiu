@@ -66,7 +66,6 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "返回", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -83,7 +82,7 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
         });
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.rl_statusFragment, StatusFragment.newInstance("feild")).commit();
+        fm.beginTransaction().add(R.id.rl_statusFragment, StatusFragment.newInstance(StatusFragment.SOCCERFIELD)).commit();
     }
 
     @Override

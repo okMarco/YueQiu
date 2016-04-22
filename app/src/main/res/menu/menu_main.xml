@@ -9,7 +9,14 @@
         android:title="@string/action_search"
         android:orderInCategory="100"
         android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_notifications"
+        android:title="@string/action_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_notifications"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
@@ -22,7 +29,6 @@
                 android:id="@+id/action_about"
                 android:title="@string/action_about"
                 app:showAsAction="withText"/>
-
         </menu>
     </item>
 </menu>

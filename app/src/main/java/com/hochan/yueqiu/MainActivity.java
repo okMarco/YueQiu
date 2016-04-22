@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        //getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         setContentView(R.layout.activity_main);
         mAppBarLayout = (CustomAppBarLayout) findViewById(R.id.appBarLayout);
         imgbtnBack = (ImageButton) findViewById(R.id.back);

@@ -53,27 +53,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/route_drive_normal"
+                            android:src="@drawable/route_icon_car_hl"
                             android:padding="10dp"
-                            android:tint="@color/colorStatusText"
+                            android:tint="@color/colorTheme"
                             android:background="@android:color/transparent"/>
                         <ImageButton
                             android:id="@+id/ibtn_bus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/route_bus_normal"
+                            android:src="@drawable/route_icon_bus_hl"
                             android:padding="10dp"
-                            android:tint="@color/colorStatusText"
+                            android:tint="@color/colorTheme"
                             android:background="@android:color/transparent"/>
                         <ImageButton
                             android:id="@+id/ibtn_walk"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:src="@drawable/route_walk_normal"
+                            android:src="@drawable/route_icon_onfoot_hl"
                             android:padding="10dp"
-                            android:tint="@color/colorStatusText"
+                            android:tint="@color/colorTheme"
                             android:background="@android:color/transparent"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -83,8 +83,6 @@
 
         <RelativeLayout
             android:id="@+id/rl_statusFragment"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="fill_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="fill_parent"></RelativeLayout>

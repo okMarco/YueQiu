@@ -5,19 +5,19 @@ android {
     signingConfigs {
         //调试用的KeyStore
         debug {
-            keyAlias 'key'
-            keyPassword '088210'
+            keyAlias 'yueqiu'
+            keyPassword '13349015'
             //配置你的keystroe路径
-            storeFile file('D:\\Android\\keystore.jks')
-            storePassword '088210'
+            storeFile file('keystore/yueqiukeystore.jks')
+            storePassword '13349015'
         }
         //发布版的keystore
         release {
-            keyAlias 'key'
-            keyPassword '088210'
+            keyAlias 'yueqiu'
+            keyPassword '13349015'
             //配置你的keystroe路径
-            storeFile file('D:\\Android\\keystore.jks')
-            storePassword '088210'
+            storeFile file('keystore/yueqiukeystore.jks')
+            storePassword '13349015'
         }
     }
     compileSdkVersion 23

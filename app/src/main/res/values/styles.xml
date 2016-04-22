@@ -17,10 +17,23 @@
     <style name="TitleTextStyle">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorTitleText</item>
     </style>
     <style name="AppTheme.NoActionBar.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.NoActionBar.PopupOverlay"
+        parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="TabTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="StatusTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/colorStatusText</item>
+    </style>
 </resources>

@@ -21,15 +21,18 @@ import java.net.ContentHandler;
 public class StatusFragment extends Fragment{
 
     public final static String TAG = "tag";
+    public final static int SOCCERFIELD = 0;
+    public final static int MYINITIATE = 1;
+    public final static int MYPARTICIPATE = 2;
     private View mView;
     private Context mContext;
     private RecyclerView rvStatus;
     private StatusAdapter mStatusAdapter;
 
-    public static StatusFragment newInstance(String tag){
+    public static StatusFragment newInstance(int tag){
         StatusFragment statusFragment = new StatusFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(TAG, tag);
+        bundle.putInt(TAG, tag);
         statusFragment.setArguments(bundle);
         return statusFragment;
     }

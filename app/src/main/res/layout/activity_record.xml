@@ -2,26 +2,41 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context="com.hochan.yueqiu.RecordActivity">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
-
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleTextAppearance="@style/TitleTextStyle"
+            android:title="@string/title_text_main"/>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextAppearance="@style/TabTextStyle"
+            app:tabTextColor="#92d5a1"/>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_record" />
-
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

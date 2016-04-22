@@ -33,6 +33,23 @@ public class StatusAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         StatusViewHolder viewHolder = (StatusViewHolder) holder;
+        switch (position){
+            case 0:
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_0);
+                break;
+            case 1:
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_1);
+                break;
+            case 2:
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_2);
+                break;
+            case 3:
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_3);
+                break;
+            case 4:
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_4);
+                break;
+        }
         //viewHolder.tvUserName.setText("HO");
 //        for(int i = 0; i < 6; i++){
 //            CircleImageView circleImageView = new CircleImageView(mContext);
@@ -53,18 +70,19 @@ public class StatusAdapter extends RecyclerView.Adapter{
         public TextView tvUserName, tvCreateTime, tvLocation, tvTime, tvCount;
         public Button btnDo;
         public LinearLayout llParticipants;
+
         public StatusViewHolder(View itemView) {
             super(itemView);
-//            civUserIcon = (CircleImageView) itemView.findViewById(R.id.cimg_userIcon);
-//            tvUserName = (TextView) itemView.findViewById(R.id.tv_userIcon);
-//            tvCreateTime = (TextView) itemView.findViewById(R.id.tv_createTime);
-//            tvLocation = (TextView) itemView.findViewById(R.id.tv_createTime);
-//            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
-//            tvCount = (TextView) itemView.findViewById(R.id.tv_count);
-//            btnDo = (Button) itemView.findViewById(R.id.btn_do);
-//            llParticipants = (LinearLayout) itemView.findViewById(R.id.ll_participants);
-//
-//            btnDo.setOnClickListener(this);
+            civUserIcon = (CircleImageView) itemView.findViewById(R.id.cimg_userIcon);
+            tvUserName = (TextView) itemView.findViewById(R.id.tv_userIcon);
+            tvCreateTime = (TextView) itemView.findViewById(R.id.tv_createTime);
+            tvLocation = (TextView) itemView.findViewById(R.id.tv_createTime);
+            tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            tvCount = (TextView) itemView.findViewById(R.id.tv_count);
+            btnDo = (Button) itemView.findViewById(R.id.btn_do);
+            llParticipants = (LinearLayout) itemView.findViewById(R.id.ll_participants);
+
+            btnDo.setOnClickListener(this);
         }
 
         @Override
