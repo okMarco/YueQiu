@@ -32,14 +32,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:text="约球"
                 android:textColor="@color/colorStatusText"/>
             <TextView
                 android:id="@+id/tv_createTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="昨天13:00"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/colorCreateTime"/>
         </LinearLayout>
@@ -60,7 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17sp"
-            android:text="中山大学东田径场"
             android:textColor="@color/colorStatusText"/>
     </LinearLayout>
     <LinearLayout
@@ -79,7 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17sp"
-            android:text="明天14：30 - 16：30"
             android:textColor="@color/colorStatusText"/>
     </LinearLayout>
     <LinearLayout
@@ -98,7 +94,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17sp"
-            android:text="5 - 5"
             android:textColor="@color/colorStatusText"/>
     </LinearLayout>
     <LinearLayout
@@ -117,7 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="17sp"
-            android:text="5"
             android:textColor="@color/colorStatusText"/>
     </LinearLayout>
 

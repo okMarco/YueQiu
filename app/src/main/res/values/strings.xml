@@ -13,4 +13,6 @@
 
     <string name="no_result">对不起，没有搜索到相关数据！</string>
     <string name="title_activity_soccer_field">SoccerFieldActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_post">PostActivity</string>
 </resources>

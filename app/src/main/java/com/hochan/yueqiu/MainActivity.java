@@ -51,6 +51,12 @@ import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.core.SuggestionCity;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVGeoPoint;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.hochan.customview.CustomAppBarLayout;
 import com.hochan.fragment.DrawerFragment;
 import com.wilddog.client.AuthData;
@@ -72,10 +78,13 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
+
+    //view
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private CustomAppBarLayout mAppBarLayout;
     private ImageButton imgbtnBack;
+    private FloatingActionButton mFab;
 
     private PoiResult poiResult; // poi返回的结果
     private int currentPage = 0;// 当前页面，从0开始计数
@@ -95,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Intent intent = new Intent(this, LoginActivity.class);
+        //startActivity(intent);
         //getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         setContentView(R.layout.activity_main);
         mAppBarLayout = (CustomAppBarLayout) findViewById(R.id.appBarLayout);
@@ -113,9 +124,14 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
             }
         });
 
-        MenuBuilder menuBuilder = new MenuBuilder(this);
-
-        //toolbar.setMenu(new MenuBuilder(R.menu.menu_main));
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PostActivity.class);
+                startActivity(intent);
+            }
+        });
 
         getSupportFragmentManager().beginTransaction().add(R.id.rl_drawerFragment, DrawerFragment.newInstance()).commit();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -330,11 +346,11 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
-        Toast.makeText(getApplicationContext(), ""+marker.getPosition(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), ""+marker.getPosition(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, SoccerFieldActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putString(MyApplication.FIELD_ID, poiOverlay.mFieldID.get(poiOverlay.getPoiIndex(marker)));
         bundle.putString(SoccerFieldActivity.NAME, marker.getTitle());
         bundle.putString(SoccerFieldActivity.LOCATION, marker.getSnippet());
         bundle.putParcelable(SoccerFieldActivity.STARTPOINT, new LatLonPoint(lp.getLatitude(), lp.getLongitude()));
@@ -362,6 +378,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
         private AMap mamap;
         private List<PoiItem> mPois;
         private ArrayList<Marker> mPoiMarks = new ArrayList<Marker>();
+        private ArrayList<String> mFieldID = new ArrayList<>();
+
         public MyPoiOverlay(AMap amap ,List<PoiItem> pois) {
             mamap = amap;
             mPois = pois;
@@ -373,11 +391,58 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
          */
         public void addToMap() {
             for (int i = 0; i < mPois.size(); i++) {
-                Marker marker = mamap.addMarker(getMarkerOptions(i));
-                PoiItem item = mPois.get(i);
-                marker.setObject(item);
-                //marker.showInfoWindow();
-                mPoiMarks.add(marker);
+
+                final int index = i;
+
+                final AVGeoPoint avGeoPoint = new AVGeoPoint();
+                avGeoPoint.setLatitude(mPois.get(index).getLatLonPoint().getLatitude());
+                avGeoPoint.setLongitude(mPois.get(index).getLatLonPoint().getLongitude());
+
+                AVQuery<AVObject> avQuery = new AVQuery<>(MyApplication.OBJECT_FIELD);
+                avQuery.whereEqualTo(MyApplication.FIELD_GEO, avGeoPoint);
+                avQuery.getFirstInBackground(new GetCallback<AVObject>() {
+                    @Override
+                    public void done(AVObject ravObject, AVException e) {
+                        if(e != null)
+                            e.printStackTrace();
+                        if(ravObject != null) {
+                            System.out.println("获取成功：" + ravObject.getObjectId()
+                                    + " " + ravObject.getString(MyApplication.FIELD_NAME)
+                                    + " " + ravObject.getString(MyApplication.FIELD_ADDRESS));
+                            int statusCount = ravObject.getInt(MyApplication.FIELD_STATUS_COUNT);
+                            String fieldID = ravObject.getObjectId();
+                            Marker marker = mamap.addMarker(getMarkerOptions(index, statusCount));
+                            PoiItem item = mPois.get(index);
+                            marker.setObject(item);
+                            //marker.showInfoWindow();
+                            mPoiMarks.add(marker);
+                            mFieldID.add(fieldID);
+                        }else{
+                            System.out.println("球场不存在--->开始新建");
+                            final AVObject avObject = new AVObject(MyApplication.OBJECT_FIELD);
+                            avObject.put(MyApplication.FIELD_NAME, mPois.get(index).getTitle());
+                            avObject.put(MyApplication.FIELD_ADDRESS, mPois.get(index).getProvinceName()+mPois.get(index).getCityName()
+                                    +mPois.get(index).getAdName()+mPois.get(index).getSnippet());
+                            AVGeoPoint avGeoPoint = new AVGeoPoint();
+                            avGeoPoint.setLatitude(mPois.get(index).getLatLonPoint().getLatitude());
+                            avGeoPoint.setLongitude(mPois.get(index).getLatLonPoint().getLongitude());
+                            avObject.put(MyApplication.FIELD_GEO, avGeoPoint);
+                            avObject.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if(e == null){
+                                        Marker marker = mamap.addMarker(getMarkerOptions(index, 0));
+                                        PoiItem item = mPois.get(index);
+                                        marker.setObject(item);
+                                        //marker.showInfoWindow();
+                                        mPoiMarks.add(marker);
+                                        mFieldID.add(avObject.getObjectId());
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
             }
         }
 
@@ -414,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
             return b.build();
         }
 
-        private MarkerOptions getMarkerOptions(int index) {
+        private MarkerOptions getMarkerOptions(final int index, int statusCount) {
 
             return new MarkerOptions()
                     .position(
@@ -422,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
                                     .getLatitude(), mPois.get(index)
                                     .getLatLonPoint().getLongitude()))
                     .title(getTitle(index)).snippet(getSnippet(index))
-                    .icon(getBitmapDescriptor(index));
+                    .icon(getBitmapDescriptor(statusCount));
         }
 
         protected String getTitle(int index) {

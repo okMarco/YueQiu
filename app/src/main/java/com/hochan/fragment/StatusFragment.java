@@ -10,10 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.hochan.adapter.StatusAdapter;
+import com.hochan.yueqiu.MyApplication;
 import com.hochan.yueqiu.R;
 
 import java.net.ContentHandler;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/4/3.
@@ -28,11 +35,13 @@ public class StatusFragment extends Fragment{
     private Context mContext;
     private RecyclerView rvStatus;
     private StatusAdapter mStatusAdapter;
+    private String mFieldID;
 
-    public static StatusFragment newInstance(int tag){
+    public static StatusFragment newInstance(int tag, String fieldID){
         StatusFragment statusFragment = new StatusFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(TAG, tag);
+        bundle.putString(MyApplication.FIELD_ID, fieldID);
         statusFragment.setArguments(bundle);
         return statusFragment;
     }
@@ -56,5 +65,25 @@ public class StatusFragment extends Fragment{
         rvStatus.setHasFixedSize(true);
         mStatusAdapter = new StatusAdapter(mContext);
         rvStatus.setAdapter(mStatusAdapter);
+
+        mFieldID = getArguments().getString(MyApplication.FIELD_ID);
+
+        AVObject avObject = AVObject.createWithoutData(MyApplication.OBJECT_FIELD, mFieldID);
+        AVQuery<AVObject> avQuery = avObject.getRelation(MyApplication.FIELD_STATUS).getQuery();
+        avQuery.include(MyApplication.STATUS_SOURCE);
+        avQuery.include(MyApplication.STATUS_TARGET_FIELD);
+        avQuery.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                System.out.println("该球场下的约球数目："+list.size());
+                for(AVObject tmpAVObject : list){
+//                    System.out.println(tmpAVObject.getString(MyApplication.STATUS_FIELD_NAME));
+//                    AVUser avUser = tmpAVObject.getAVUser(MyApplication.STATUS_SOURCE);
+//                    System.out.println(avUser.getUsername());
+//                    System.out.println(avUser.getObjectId());
+                    mStatusAdapter.setData(list);
+                }
+            }
+        });
     }
 }

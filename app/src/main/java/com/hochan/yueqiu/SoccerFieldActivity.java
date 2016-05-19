@@ -1,6 +1,7 @@
 package com.hochan.yueqiu;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -19,10 +20,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.services.core.LatLonPoint;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVStatus;
+import com.avos.avoscloud.AVStatusQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.CountCallback;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.StatusListCallback;
+import com.avos.avoscloud.search.AVSearchQuery;
 import com.hochan.adapter.StatusAdapter;
 import com.hochan.fragment.RouteFragment;
 import com.hochan.fragment.StatusFragment;
 import com.hochan.yueqiu.R;
+
+import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 @SuppressWarnings("deprecation")
@@ -37,6 +51,8 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
     private TextView tvLocation;
     private LatLonPoint mStartPoint;
     private LatLonPoint mEndPoint;
+    private String mName;
+    private String mFieldID;
     private ImageButton ivbtnDrive;
     private ImageButton ivbtnBus;
     private ImageButton ivbtnWalk;
@@ -44,10 +60,10 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         setContentView(R.layout.activity_soccer_field);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getExtras().getString(NAME));
+        mName = getIntent().getExtras().getString(NAME);
+        toolbar.setTitle(mName);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_backarrow));
 
         setSupportActionBar(toolbar);
@@ -58,10 +74,10 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
         ivbtnDrive.setOnClickListener(this);
         ivbtnBus.setOnClickListener(this);
         ivbtnWalk.setOnClickListener(this);
+
         mStartPoint = getIntent().getExtras().getParcelable(STARTPOINT);
         mEndPoint = getIntent().getExtras().getParcelable(ENDPOINT);
-        Toast.makeText(getApplicationContext(), mStartPoint.getLatitude()+" "+mStartPoint.getLongitude()
-        +" "+mEndPoint.getLatitude()+" "+mEndPoint.getLongitude(), Toast.LENGTH_LONG).show();
+        mFieldID = getIntent().getExtras().getString(MyApplication.FIELD_ID);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,16 +89,11 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
         tvLocation = (TextView) findViewById(R.id.tv_location);
         tvLocation.setText(getIntent().getExtras().getString(LOCATION));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(this);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().add(R.id.rl_statusFragment, StatusFragment.newInstance(StatusFragment.SOCCERFIELD)).commit();
+        fm.beginTransaction().add(R.id.rl_statusFragment,
+                StatusFragment.newInstance(StatusFragment.SOCCERFIELD, mFieldID)).commit();
     }
 
     @Override
@@ -96,6 +107,20 @@ public class SoccerFieldActivity extends AppCompatActivity implements View.OnCli
                 break;
             case R.id.ibtn_walk:
                 RouteFragment.newInstance(mStartPoint, mEndPoint, RouteFragment.ROUTE_TYPE_WALK).show(getSupportFragmentManager(), "route");
+                break;
+            case R.id.fab:
+                if(AVUser.getCurrentUser() == null){
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                Intent intent = new Intent(this, PostActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(MyApplication.FIELD_GEO, mEndPoint);
+                bundle.putString(MyApplication.FIELD_NAME, mName);
+                bundle.putString(MyApplication.FIELD_ID, mFieldID);
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

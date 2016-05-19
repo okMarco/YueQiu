@@ -9,8 +9,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 import com.hochan.fragment.StatusFragment;
+import com.hochan.yueqiu.MyApplication;
 import com.hochan.yueqiu.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -20,8 +27,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StatusAdapter extends RecyclerView.Adapter{
 
     private Context mContext;
+    private List<AVObject> mStatusList = new ArrayList<>();
+
     public StatusAdapter(Context context){
         this.mContext = context;
+    }
+
+    public void setData(List<AVObject> list){
+        this.mStatusList = list;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -33,35 +47,23 @@ public class StatusAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         StatusViewHolder viewHolder = (StatusViewHolder) holder;
-        switch (position){
-            case 0:
-                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_0);
-                break;
-            case 1:
-                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_1);
-                break;
-            case 2:
-                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_2);
-                break;
-            case 3:
-                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_3);
-                break;
-            case 4:
-                viewHolder.civUserIcon.setImageResource(R.drawable.avatar_4);
-                break;
-        }
-        //viewHolder.tvUserName.setText("HO");
-//        for(int i = 0; i < 6; i++){
-//            CircleImageView circleImageView = new CircleImageView(mContext);
-//            circleImageView.setBackgroundResource(R.drawable.avatar);
-//            circleImageView.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-//            viewHolder.llParticipants.addView(circleImageView);
-//        }
+        AVObject avObject = mStatusList.get(position);
+        AVUser avUser = avObject.getAVUser(MyApplication.STATUS_SOURCE);
+        AVObject avObjectField = avObject.getAVObject(MyApplication.STATUS_TARGET_FIELD);
+        viewHolder.tvUserName.setText(avUser.getUsername());
+        viewHolder.tvCreateTime.setText(avObject.getCreatedAt().toString());
+        viewHolder.tvLocation.setText(avObjectField.getString(MyApplication.FIELD_NAME));
+        viewHolder.tvTime.setText(avObject.getDate(MyApplication.STATUS_START_TIME).toString());
+        viewHolder.tvCount.setText(avObject.getString(MyApplication.STATUS_PARTICIPANTS_COUNT));
+
+        AVFile avFile = avUser.getAVFile(MyApplication.USER_AVATAR);
+        if(avFile != null)
+            System.out.println(avFile.getUrl());
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mStatusList.size();
     }
 
     class StatusViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -76,7 +78,7 @@ public class StatusAdapter extends RecyclerView.Adapter{
             civUserIcon = (CircleImageView) itemView.findViewById(R.id.cimg_userIcon);
             tvUserName = (TextView) itemView.findViewById(R.id.tv_userIcon);
             tvCreateTime = (TextView) itemView.findViewById(R.id.tv_createTime);
-            tvLocation = (TextView) itemView.findViewById(R.id.tv_createTime);
+            tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvCount = (TextView) itemView.findViewById(R.id.tv_count);
             btnDo = (Button) itemView.findViewById(R.id.btn_do);
