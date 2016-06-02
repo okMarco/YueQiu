@@ -51,7 +51,11 @@
         <activity
             android:name=".PostActivity"
             android:label="@string/title_activity_post"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name="com.hochan.service.UploadAvatarIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

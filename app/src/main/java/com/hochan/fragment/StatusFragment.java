@@ -1,9 +1,11 @@
 package com.hochan.fragment;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,7 +27,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/3.
  */
-public class StatusFragment extends Fragment{
+public class StatusFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     public final static String TAG = "tag";
     public final static int SOCCERFIELD = 0;
@@ -36,6 +38,10 @@ public class StatusFragment extends Fragment{
     private RecyclerView rvStatus;
     private StatusAdapter mStatusAdapter;
     private String mFieldID;
+    private int mTag = 0;
+
+    private AVUser mAVUser;
+    private SwipeRefreshLayout mSwipeRefresh;
 
     public static StatusFragment newInstance(int tag, String fieldID){
         StatusFragment statusFragment = new StatusFragment();
@@ -59,6 +65,10 @@ public class StatusFragment extends Fragment{
         mView = getView();
 
         mContext = getContext();
+        mSwipeRefresh = (SwipeRefreshLayout) mView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefresh.setProgressBackgroundColorSchemeResource(R.color.colorPrimary);
+        mSwipeRefresh.setColorSchemeResources(android.R.color.white);
+
         rvStatus = (RecyclerView) mView.findViewById(R.id.rv_statusList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         rvStatus.setLayoutManager(layoutManager);
@@ -66,24 +76,41 @@ public class StatusFragment extends Fragment{
         mStatusAdapter = new StatusAdapter(mContext);
         rvStatus.setAdapter(mStatusAdapter);
 
-        mFieldID = getArguments().getString(MyApplication.FIELD_ID);
+        mAVUser = AVUser.getCurrentUser();
 
-        AVObject avObject = AVObject.createWithoutData(MyApplication.OBJECT_FIELD, mFieldID);
-        AVQuery<AVObject> avQuery = avObject.getRelation(MyApplication.FIELD_STATUS).getQuery();
+        mTag = getArguments().getInt(TAG);
+        AVQuery<AVObject> avQuery = null;
+        switch (mTag){
+            case SOCCERFIELD:
+                mFieldID = getArguments().getString(MyApplication.FIELD_ID);
+                AVObject avObject = AVObject.createWithoutData(MyApplication.OBJECT_FIELD, mFieldID);
+                avQuery = avObject.getRelation(MyApplication.FIELD_STATUS).getQuery();
+                break;
+            case MYINITIATE:
+                avQuery = mAVUser.getRelation(MyApplication.USER_ORIGIN_STATUS).getQuery();
+                break;
+            case MYPARTICIPATE:
+                avQuery = mAVUser.getRelation(MyApplication.USER_JOIN_STATUS).getQuery();
+                break;
+        }
+        getStauses(avQuery);
+    }
+
+    private void getStauses(AVQuery<AVObject> avQuery){
         avQuery.include(MyApplication.STATUS_SOURCE);
         avQuery.include(MyApplication.STATUS_TARGET_FIELD);
         avQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                System.out.println("该球场下的约球数目："+list.size());
-                for(AVObject tmpAVObject : list){
-//                    System.out.println(tmpAVObject.getString(MyApplication.STATUS_FIELD_NAME));
-//                    AVUser avUser = tmpAVObject.getAVUser(MyApplication.STATUS_SOURCE);
-//                    System.out.println(avUser.getUsername());
-//                    System.out.println(avUser.getObjectId());
+                if(e == null) {
                     mStatusAdapter.setData(list);
                 }
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 }

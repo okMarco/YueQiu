@@ -17,12 +17,20 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_comment_report"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
-            <TextView
+            <Button
+                android:id="@+id/btn_login"
+                android:background="@android:color/transparent"
                 android:padding="15dp"
                 android:textSize="17sp"
                 android:textColor="@color/colorPrimary"
@@ -31,7 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="登录"/>
-            <TextView
+            <Button
+                android:id="@+id/btn_register"
+                android:background="@android:color/transparent"
                 android:padding="15dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="17sp"

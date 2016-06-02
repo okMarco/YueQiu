@@ -16,12 +16,14 @@
         android:background="?attr/colorPrimary"
         >
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_user_icon"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:background="@drawable/avatar"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/avatar_2"/>
+            android:src="@drawable/avatar"/>
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -31,127 +33,71 @@
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_create_read"
-            android:tint="@color/colorStatusText"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            style="@style/DrawerImageViewStyle"
+            android:src="@drawable/ic_create_read" />
 
         <Button
             android:id="@+id/btn_record"
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="@android:color/transparent"
-            android:text="约球记录"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorStatusText"/>
-    </LinearLayout>
+            style="@style/DrawerButtonStyle"
+            android:text="约球记录"/>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_grade"
-            android:tint="@color/colorStatusText"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            style="@style/DrawerImageViewStyle"
+            android:src="@drawable/ic_grade"/>
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="@android:color/transparent"
-            android:text="我的关注"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorStatusText"/>
-    </LinearLayout>
+            style="@style/DrawerButtonStyle"
+            android:text="我的关注"/>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_drawer_follow"
-            android:tint="@color/colorStatusText"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            style="@style/DrawerImageViewStyle"
+            android:src="@drawable/ic_drawer_follow"/>
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="@android:color/transparent"
-            android:text="足球资讯"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorStatusText"/>
-    </LinearLayout>
+            style="@style/DrawerButtonStyle"
+            android:text="足球资讯"/>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_marginTop="20dp">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_drawer_settings"
-            android:tint="@color/colorStatusText"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            style="@style/DrawerImageViewStyle"
+            android:src="@drawable/ic_drawer_settings"/>
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="@android:color/transparent"
-            android:text="设置"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorStatusText"/>
-    </LinearLayout>
+            style="@style/DrawerButtonStyle"
+            android:text="设置"/>
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="55dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_comment_report"
-            android:tint="@color/colorStatusText"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            style="@style/DrawerImageViewStyle"
+            android:src="@drawable/ic_comment_report"/>
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="55dp"
-            android:background="@android:color/transparent"
-            android:text="反馈"
-            android:textSize="14sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:textColor="@color/colorStatusText"/>
-    </LinearLayout>
+            style="@style/DrawerButtonStyle"
+            android:text="反馈"/>
+    </FrameLayout>
 
 
 </LinearLayout>

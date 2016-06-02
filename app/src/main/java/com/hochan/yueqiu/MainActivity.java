@@ -55,6 +55,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.hochan.customview.CustomAppBarLayout;
@@ -347,14 +348,18 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     @Override
     public boolean onMarkerClick(Marker marker) {
         //Toast.makeText(getApplicationContext(), ""+marker.getPosition(), Toast.LENGTH_LONG).show();
-        Intent intent = new Intent();
-        intent.setClass(MainActivity.this, SoccerFieldActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(MyApplication.FIELD_ID, poiOverlay.mFieldID.get(poiOverlay.getPoiIndex(marker)));
         bundle.putString(SoccerFieldActivity.NAME, marker.getTitle());
         bundle.putString(SoccerFieldActivity.LOCATION, marker.getSnippet());
         bundle.putParcelable(SoccerFieldActivity.STARTPOINT, new LatLonPoint(lp.getLatitude(), lp.getLongitude()));
         bundle.putParcelable(SoccerFieldActivity.ENDPOINT, new LatLonPoint(marker.getPosition().latitude, marker.getPosition().longitude));
+        Intent intent = new Intent();
+
+        if(AVUser.getCurrentUser() == null)
+            intent.setClass(this, LoginActivity.class);
+        else
+            intent.setClass(MainActivity.this, SoccerFieldActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
         return true;

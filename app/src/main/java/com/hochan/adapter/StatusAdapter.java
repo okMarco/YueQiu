@@ -15,6 +15,8 @@ import com.avos.avoscloud.AVUser;
 import com.hochan.fragment.StatusFragment;
 import com.hochan.yueqiu.MyApplication;
 import com.hochan.yueqiu.R;
+import com.squareup.picasso.Picasso;
+import com.tencent.tauth.bean.Pic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,12 +55,21 @@ public class StatusAdapter extends RecyclerView.Adapter{
         viewHolder.tvUserName.setText(avUser.getUsername());
         viewHolder.tvCreateTime.setText(avObject.getCreatedAt().toString());
         viewHolder.tvLocation.setText(avObjectField.getString(MyApplication.FIELD_NAME));
+
         viewHolder.tvTime.setText(avObject.getDate(MyApplication.STATUS_START_TIME).toString());
+        viewHolder.tvEndTime.setText(avObject.getDate(MyApplication.STATUS_END_TIME).toString());
+
         viewHolder.tvCount.setText(avObject.getString(MyApplication.STATUS_PARTICIPANTS_COUNT));
 
         AVFile avFile = avUser.getAVFile(MyApplication.USER_AVATAR);
-        if(avFile != null)
+        if(avFile != null) {
             System.out.println(avFile.getUrl());
+            Picasso.with(mContext)
+                    .load(avFile.getUrl())
+                    .into(viewHolder.civUserIcon);
+        }else{
+            viewHolder.civUserIcon.setImageResource(R.drawable.avatar);
+        }
     }
 
     @Override
@@ -69,7 +80,8 @@ public class StatusAdapter extends RecyclerView.Adapter{
     class StatusViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public CircleImageView civUserIcon;
-        public TextView tvUserName, tvCreateTime, tvLocation, tvTime, tvCount;
+        public TextView tvUserName, tvCreateTime,
+                tvLocation, tvTime, tvEndTime, tvCount;
         public Button btnDo;
         public LinearLayout llParticipants;
 
@@ -80,6 +92,7 @@ public class StatusAdapter extends RecyclerView.Adapter{
             tvCreateTime = (TextView) itemView.findViewById(R.id.tv_createTime);
             tvLocation = (TextView) itemView.findViewById(R.id.tv_location);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            tvEndTime = (TextView) itemView.findViewById(R.id.tv_end_time);
             tvCount = (TextView) itemView.findViewById(R.id.tv_count);
             btnDo = (Button) itemView.findViewById(R.id.btn_do);
             llParticipants = (LinearLayout) itemView.findViewById(R.id.ll_participants);
@@ -91,8 +104,10 @@ public class StatusAdapter extends RecyclerView.Adapter{
         public void onClick(View v) {
            switch (v.getId()){
                case R.id.btn_do:
-                   if(btnDo.getText() == "加入")
-                        btnDo.setText("退出");
+                   if(btnDo.getText() == "加入") {
+
+                       btnDo.setText("退出");
+                   }
                    else if(btnDo.getText() == "退出")
                        btnDo.setText("加入");
            }

@@ -6,13 +6,20 @@
     android:padding="20dp">
 
     <EditText
-        android:id="@+id/ed_login_name"
-        android:hint="用户名或邮箱"
+        android:id="@+id/ed_register_name"
+        android:hint="用户名"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/ed_login_password"
+        android:id="@+id/ed_register_email"
+        android:hint="邮箱"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/ed_register_password"
         android:hint="密码"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"

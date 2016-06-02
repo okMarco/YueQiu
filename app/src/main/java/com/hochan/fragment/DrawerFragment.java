@@ -10,9 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.hochan.yueqiu.R;
 import com.hochan.yueqiu.RecordActivity;
+import com.squareup.picasso.Picasso;
+import com.tencent.tauth.bean.Pic;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Administrator on 2016/4/5.
@@ -22,6 +28,8 @@ public class DrawerFragment extends Fragment implements View.OnClickListener{
     private Button btnMyRecord;
     private View mView;
     private Context mContext;
+    private TextView tvUserName;
+    private CircleImageView civUserIcon;
 
     public static DrawerFragment newInstance(){
         DrawerFragment drawerFragment = new DrawerFragment();
@@ -42,7 +50,19 @@ public class DrawerFragment extends Fragment implements View.OnClickListener{
         mView = getView();
         mContext = getContext();
         btnMyRecord = (Button) mView.findViewById(R.id.btn_record);
+        tvUserName = (TextView) mView.findViewById(R.id.tv_user_name);
+        civUserIcon = (CircleImageView) mView.findViewById(R.id.civ_user_icon);
         btnMyRecord.setOnClickListener(this);
+
+        AVUser avUser = AVUser.getCurrentUser();
+        if(avUser != null){
+            tvUserName.setText(avUser.getUsername());
+            Picasso.with(mContext)
+                    .load(avUser.getAVFile("avatar").getUrl())
+            .into(civUserIcon);
+        }else{
+            tvUserName.setText("未登录");
+        }
     }
 
     @Override
