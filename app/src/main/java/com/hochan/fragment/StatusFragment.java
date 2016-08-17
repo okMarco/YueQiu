@@ -62,6 +62,9 @@ public class StatusFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        System.out.println("onActivityCreated");
+
         mView = getView();
 
         mContext = getContext();

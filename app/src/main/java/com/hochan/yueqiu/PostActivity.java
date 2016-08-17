@@ -1,5 +1,6 @@
 package com.hochan.yueqiu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -133,7 +134,7 @@ public class PostActivity extends AppCompatActivity {
                                     @Override
                                     public void done(AVException e) {
                                         Toast.makeText(PostActivity.this, "已发布！", Toast.LENGTH_LONG).show();
-                                        finish();
+                                        startActivity(new Intent(PostActivity.this, MainActivity.class));
                                     }
                                 });
 

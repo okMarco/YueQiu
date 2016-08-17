@@ -51,27 +51,33 @@ public class StatusAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         StatusViewHolder viewHolder = (StatusViewHolder) holder;
-        AVObject avObject = mStatusList.get(position);
-        AVUser avUser = avObject.getAVUser(MyApplication.STATUS_SOURCE);
-        AVObject avObjectField = avObject.getAVObject(MyApplication.STATUS_TARGET_FIELD);
-        viewHolder.tvUserName.setText(avUser.getUsername());
-        viewHolder.tvCreateTime.setText(avObject.getCreatedAt().toString());
-        viewHolder.tvLocation.setText(avObjectField.getString(MyApplication.FIELD_NAME));
+        System.out.println(mStatusList.size());
+        try {
+            AVObject avObject = mStatusList.get(position);
+            AVUser avUser = avObject.getAVUser(MyApplication.STATUS_SOURCE);
+            AVObject avObjectField = avObject.getAVObject(MyApplication.STATUS_TARGET_FIELD);
+            viewHolder.tvUserName.setText(avUser.getUsername());
+            viewHolder.tvCreateTime.setText(avObject.getCreatedAt().toString());
+            viewHolder.tvLocation.setText(avObjectField.getString(MyApplication.FIELD_NAME));
 
-        viewHolder.tvTime.setText(avObject.getDate(MyApplication.STATUS_START_TIME).toString());
-        viewHolder.tvEndTime.setText(avObject.getDate(MyApplication.STATUS_END_TIME).toString());
+            viewHolder.tvTime.setText(avObject.getDate(MyApplication.STATUS_START_TIME).toString());
+            viewHolder.tvEndTime.setText(avObject.getDate(MyApplication.STATUS_END_TIME).toString());
 
-        viewHolder.tvCount.setText(avObject.getString(MyApplication.STATUS_PARTICIPANTS_COUNT));
+            viewHolder.tvCount.setText(avObject.getString(MyApplication.STATUS_PARTICIPANTS_COUNT));
 
-        AVFile avFile = avUser.getAVFile(MyApplication.USER_AVATAR);
-        if(avFile != null) {
-            System.out.println(avFile.getUrl());
-            Picasso.with(mContext)
-                    .load(avFile.getUrl())
-                    .into(viewHolder.civUserIcon);
-        }else{
-            viewHolder.civUserIcon.setImageResource(R.drawable.avatar);
+            AVFile avFile = avUser.getAVFile(MyApplication.USER_AVATAR);
+            if(avFile != null) {
+                System.out.println(avFile.getUrl());
+                Picasso.with(mContext)
+                        .load(avFile.getUrl())
+                        .into(viewHolder.civUserIcon);
+            }else{
+                viewHolder.civUserIcon.setImageResource(R.drawable.avatar);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     @Override
