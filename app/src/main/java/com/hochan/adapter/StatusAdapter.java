@@ -1,6 +1,8 @@
 package com.hochan.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +99,7 @@ public class StatusAdapter extends RecyclerView.Adapter{
             btnDo = (Button) itemView.findViewById(R.id.btn_do);
             llParticipants = (LinearLayout) itemView.findViewById(R.id.ll_participants);
 
+            btnDo.setText("加入");
             btnDo.setOnClickListener(this);
         }
 
@@ -104,9 +107,24 @@ public class StatusAdapter extends RecyclerView.Adapter{
         public void onClick(View v) {
            switch (v.getId()){
                case R.id.btn_do:
-                   if(btnDo.getText() == "加入") {
+                   if(btnDo.getText().equals("加入")) {
 
-                       btnDo.setText("退出");
+                       new AlertDialog.Builder(mContext)
+                               .setTitle("加入约球")
+                               .setMessage("确定加入该约球吗？")
+                               .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+
+                                   }
+                               })
+                               .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       btnDo.setText("退出");
+                                   }
+                               })
+                               .show();
                    }
                    else if(btnDo.getText() == "退出")
                        btnDo.setText("加入");

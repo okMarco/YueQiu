@@ -274,10 +274,10 @@ public class RouteFragment extends DialogFragment implements RouteSearch.OnRoute
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(mContext, "点击", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(mContext, "点击", Toast.LENGTH_LONG).show();
                             DriveSegmentListAdapter listAdapter = new DriveSegmentListAdapter(getContext(), drivePath.getSteps());
                             listViewRoute.setAdapter(listAdapter);
-                            Toast.makeText(mContext, ""+scrollLayout.getScrollY(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(mContext, ""+scrollLayout.getScrollY(), Toast.LENGTH_LONG).show();
                             if(scrollLayout.getScrollY() == 0)
                                 scrollLayout.showListView();
                             else
@@ -325,10 +325,10 @@ public class RouteFragment extends DialogFragment implements RouteSearch.OnRoute
                         @Override
                         public void onClick(View v) {
 
-                            Toast.makeText(mContext, "点击", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(mContext, "点击", Toast.LENGTH_LONG).show();
                             WalkSegmentListAdapter listAdapter = new WalkSegmentListAdapter(getContext(), walkPath.getSteps());
                             listViewRoute.setAdapter(listAdapter);
-                            Toast.makeText(mContext, "" + scrollLayout.getScrollY(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(mContext, "" + scrollLayout.getScrollY(), Toast.LENGTH_LONG).show();
                             if (scrollLayout.getScrollY() == 0)
                                 scrollLayout.showListView();
                             else

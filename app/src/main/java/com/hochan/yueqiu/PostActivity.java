@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.amap.api.services.core.LatLonPoint;
 import com.avos.avoscloud.AVException;
@@ -99,7 +100,7 @@ public class PostActivity extends AppCompatActivity {
                             return;
                         }
                         System.out.println("发布约球消息成功！");
-                        final AVObject avObject = AVObject.createWithoutData(MyApplication.OBJECT_FIELD,
+                         final AVObject avObject = AVObject.createWithoutData(MyApplication.OBJECT_FIELD,
                                 mFieldID);
                         AVRelation<AVObject> relation = avObject.getRelation(MyApplication.FIELD_STATUS);
                         relation.add(avStatus);
@@ -128,7 +129,14 @@ public class PostActivity extends AppCompatActivity {
                                 }
                                 avUser.increment(MyApplication.USER_ORIGIN_STATUS_COUNT);
                                 avUser.setFetchWhenSave(true);
-                                avUser.saveInBackground();
+                                avUser.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        Toast.makeText(PostActivity.this, "已发布！", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                });
+
                             }
                         });
                     }

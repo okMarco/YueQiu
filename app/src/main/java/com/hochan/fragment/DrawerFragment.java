@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.hochan.yueqiu.R;
 import com.hochan.yueqiu.RecordActivity;
@@ -45,6 +46,25 @@ public class DrawerFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        AVUser avUser = AVUser.getCurrentUser();
+        if(avUser != null){
+            if(tvUserName != null) {
+                tvUserName.setText(avUser.getUsername());
+                AVFile avFile = avUser.getAVFile("avatar");
+                if(avFile != null) {
+                    Picasso.with(mContext)
+                            .load(avFile.getUrl())
+                            .into(civUserIcon);
+                }
+            }
+        }else{
+            tvUserName.setText("未登录");
+        }
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mView = getView();
@@ -57,9 +77,12 @@ public class DrawerFragment extends Fragment implements View.OnClickListener{
         AVUser avUser = AVUser.getCurrentUser();
         if(avUser != null){
             tvUserName.setText(avUser.getUsername());
-            Picasso.with(mContext)
-                    .load(avUser.getAVFile("avatar").getUrl())
-            .into(civUserIcon);
+            AVFile avFile = avUser.getAVFile("avatar");
+            if(avFile != null) {
+                Picasso.with(mContext)
+                        .load(avFile.getUrl())
+                        .into(civUserIcon);
+            }
         }else{
             tvUserName.setText("未登录");
         }
